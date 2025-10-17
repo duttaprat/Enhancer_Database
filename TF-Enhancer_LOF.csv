@@ -1,4 +1,4 @@
-transcription_factor,chr,region_coordinates,dbsnp_id,variant_start,varinat_end,reference_nucleotide,alternative_nucleotide,reference_probability,alternative_probability,ScoreChange,LogOddRatio
+transcription_factor,chr,region_coordinates,dbsnp_id,variant_start,variant_end,reference_nucleotide,alternative_nucleotide,reference_probability,alternative_probability,ScoreChange,LogOddRatio
 AHR,2,77207256,rs1558553998,38603608,38603653,GTCGGCAGGAGGCGCTGCACGCGGGCGCTCGTCGGTCTGATCGGT,GT,0.9344253,0.055585314,-0.821210318,7.919512936
 ARID1B,1,47580594,rs898114578,23790291,23790292,C,T,0.99972987,0.000329923,-0.999129978,23.49078218
 ARID1B,1,65979084,rs1287151353,32989437,32989438,C,T,0.9997429,0.007671782,-0.991816056,18.94012359
