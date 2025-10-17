@@ -473,7 +473,7 @@ else:  # About page
         from sequence, providing genome-wide enhancer annotation and variant impact prediction.""")
 
     with right_col:
-        st.image(https://github.com/duttaprat/Enhancer_Database/tree/main/Figures/Enhancer.png",  # update your image path
+        st.image("https://github.com/duttaprat/Enhancer_Database/tree/main/Figures/Enhancer.png",  # update your image path
             caption="Enhancer–promoter interaction mediated by transcription factors, mediator complex, and RNA polymerase II",
             use_container_width=True
         )
