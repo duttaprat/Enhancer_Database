@@ -144,7 +144,7 @@ if page == "📊 Browse Data":
             st.metric("Records", f"{len(current_data):,}")
     with col4:
         # Will update after filtering
-        st.metric("Filtered Results",)
+        st.metric("Filtered Results", "—")
     
     st.divider()
     
