@@ -135,7 +135,7 @@ if page == "📊 Browse Data":
             clin_sig = len(current_data[current_data['is_clinically_significant'] == 'yes'])
             st.metric("Clinically Significant", clin_sig)
         else:
-            st.metric("Dataset", selected_dataset.split("_")[-2])
+            st.metric("Dataset", selected_dataset.split("_")[-1])
     with col3:
         if 'chr' in current_data.columns:
             unique_chroms = current_data['chr'].nunique()
