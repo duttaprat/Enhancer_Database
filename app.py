@@ -56,8 +56,8 @@ def load_data():
     datasets = {
         'Enhancer GOF': pd.read_csv('Enhancer_GOF.csv'),
         'Enhancer LOF': pd.read_csv('Enhancer_LOF.csv'),
-        'Non-enhancer GOF': pd.read_csv('Nonenhancer_GOF.csv'),
-        'TF Enhancer LOF': pd.read_csv('TFEnhancer_LOF.csv')
+        'Non-enhancer GOF': pd.read_csv('Non-enhancer_GOF.csv'),
+        'TF Enhancer LOF': pd.read_csv('TF-Enhancer_LOF.csv')
     }
     return datasets
 
