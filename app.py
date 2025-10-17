@@ -91,8 +91,8 @@ dataset_info = {
 
 # Sidebar
 with st.sidebar:
-    st.markdown("### 🧬 Functional Genomics Browser")
-    st.markdown("**Variant Impact Analysis**")
+    st.markdown("### 🧬 DNABERT-Enhancer Portal")
+    st.markdown("**Interactive exploration platform of predictions**")
     st.divider()
     
     # Dataset selector
