@@ -457,9 +457,29 @@ else:  # About page
     ### Genomic language model for predicting enhancers and their allele-specific activity in the human genome
 
     **Overview:**
-    The DNABERT-Enhancer portal offers an interactive platform to explore candidate gain- and loss-of-function enhancer variants predicted by the DNABERT-Enhancer-350 model using ENCODE SCREEN enhancers (350 bp).
-    It also provides access to genome-wide enhancer predictions across the human reference genome (GRCh38). This web application enables users to visualize, search, and interpret enhancer regions and their potential functional impact in a genomic context.
     
+    The DNABERT-Enhancer portal offers an interactive platform to explore candidate gain- and loss-of-function enhancer variants predicted by the DNABERT-Enhancer-350 model using ENCODE SCREEN enhancers (350 bp).
+    It also provides access to genome-wide enhancer predictions across the human reference genome (GRCh38). This web application enables users to visualize, search, and interpret enhancer regions and their potential functional impact in a genomic context.""")
+
+    left_col, right_col = st.columns([2, 1])
+    with left_col:
+        st.markdown("""
+        **Background:**
+
+        Enhancers are one of the cis-regulatory element which increases the transcription of a target genes while interacting with their target promoters with the assistance of proteins like transcription factors, 
+        mediators and RNA polymerase, thereby shaping the characteristics and function of cells and tissues. Any disruption in the ideal function of enhancers due to genetic or epigenetic changes leads to disease conditions. 
+        Predicting and deciphering the regulatory logic of enhancers is a challenging problem, due to the intricate sequence features and lack of consistent genetic or epigenetic signatures that can accurately discriminate enhancers 
+        from other genomic regions. DNABERT-Enhancer, a novel enhancer prediction method developed by applying DNABERT pre-trained language model on the human genome, learns the "language of DNA" and predict enhancer activity directly 
+        from sequence, providing genome-wide enhancer annotation and variant impact prediction.""")
+
+    with right_col:
+        st.image(
+            "Figures/Enhancer.png",  # update your image path
+            caption="Enhancer–promoter interaction mediated by transcription factors, mediator complex, and RNA polymerase II",
+            use_container_width=True
+        )
+        
+    st.markdown("""
     **Datasets:**
     
     1. **Enhancer GOF** (1,918 variants)
