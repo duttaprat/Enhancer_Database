@@ -474,7 +474,7 @@ else:  # About page
 
     with right_col:
         st.image(
-            "Enhancer_Database/main/Figures/Enhancer.png",  # update your image path
+            "./Figures/Enhancer.png",  # update your image path
             caption="Enhancer–promoter interaction mediated by transcription factors, mediator complex, and RNA polymerase II",
             use_container_width=True
         )
