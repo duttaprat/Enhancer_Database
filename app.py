@@ -467,8 +467,11 @@ else:  # About page
     mediators and RNA polymerase, thereby shaping the characteristics and function of cells and tissues. Any disruption in the ideal function of enhancers due to genetic or epigenetic changes leads to disease conditions. 
     Predicting and deciphering the regulatory logic of enhancers is a challenging problem, due to the intricate sequence features and lack of consistent genetic or epigenetic signatures that can accurately discriminate enhancers 
     from other genomic regions. DNABERT-Enhancer, a novel enhancer prediction method developed by applying DNABERT pre-trained language model on the human genome, learns the "language of DNA" and predict enhancer activity directly 
-    from sequence, providing genome-wide enhancer annotation and variant impact prediction.
+    from sequence, providing genome-wide enhancer annotation and variant impact prediction.""")
+
+    st.image("Enhancer.png", caption="Enhancer–promoter interaction mediated by transcription factors, mediator complex, and RNA polymerase II", use_column_width=True)
     
+    st.markdown("""
     **Datasets:**
     
     1. **Enhancer GOF** (1,918 variants)
