@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
 from PIL import Image
+import io
 
 # Page configuration
 st.set_page_config(
