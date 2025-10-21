@@ -457,18 +457,18 @@ elif page == "🔬 Analysis":
 else:  # About page
     st.title("About")
     st.markdown("""
-<div style="text-align: justify;">
+    <div style="text-align: justify;">
 
-<h3>Genomic language model for predicting enhancers and their allele-specific activity in the human genome</h3>
+    <h3>Genomic language model for predicting enhancers and their allele-specific activity in the human genome</h3>
 
-<b>Overview:</b>
+    <h5>Overview:</h5>
 
-The DNABERT-Enhancer portal offers an interactive platform to explore candidate gain- and loss-of-function enhancer variants predicted by 
-the DNABERT-Enhancer-350 model using ENCODE SCREEN enhancers (350 bp). It also provides access to genome-wide enhancer predictions across 
-the human reference genome (GRCh38). This web application enables users to visualize, search, and interpret enhancer regions and their 
-potential functional impact in a genomic context.
-</div>
-""", unsafe_allow_html=True)
+    The DNABERT-Enhancer portal offers an interactive platform to explore candidate gain- and loss-of-function enhancer variants predicted by 
+    the DNABERT-Enhancer-350 model using ENCODE SCREEN enhancers (350 bp). It also provides access to genome-wide enhancer predictions across 
+    the human reference genome (GRCh38). This web application enables users to visualize, search, and interpret enhancer regions and their 
+    potential functional impact in a genomic context.
+    </div>
+    """, unsafe_allow_html=True)
     
     # Load the image
     img = Image.open("Enhancer.png")
@@ -485,7 +485,7 @@ potential functional impact in a genomic context.
     with left_col:
         st.markdown("""
         <div style="text-align: justify;">
-        <b>Background:</b>
+        <h5>Background:</h5>
         
         Enhancers are one of the cis-regulatory element which increases the transcription of a target genes while interacting with their target promoters with the assistance of proteins like transcription factors, 
         mediators and RNA polymerase, thereby shaping the characteristics and function of cells and tissues. Any disruption in the ideal function of enhancers due to genetic or epigenetic changes leads to disease conditions. 
@@ -532,7 +532,7 @@ potential functional impact in a genomic context.
 
     st.markdown("""
     <div style="text-align: justify;">
-    <b>Candidate variants:</b>
+    <h5>Candidate variants:</h5>
     
     The DNABERT-Enhancer identifies candidate regulatory variants by evaluating short variants from dbSNP release 155 (GRCh38) located 
     within enhancer regions and transcription factor (TF) target sites. Variant effects are predicted by substituting alternate alleles into 
@@ -566,7 +566,7 @@ potential functional impact in a genomic context.
 
     st.markdown("""
     <div style="text-align: justify;">
-    <b>Enhancers in Human Genome:</b>
+    <h5>Enhancers in Human Genome:</h5>
     
     The DNABERT-Enhancer-350 model is applied to the human reference genome (GRCh38) to generate genome-wide enhancer predictions. 
     The genome is segmented into 350 bp sequences using a 150 bp sliding window, excluding regions with unidentified bases (‘N’). 
@@ -576,7 +576,7 @@ potential functional impact in a genomic context.
     databases at multiple overlap thresholds (5–95%) to assess concordance, and statistical significance is evaluated through permutation 
     testing.
     
-    <b>Features:</b>
+    <h5>Features:</h5>
     
     - Advanced filtering by chromosome, position, score change
     - Clinical significance filtering
