@@ -530,7 +530,7 @@ else:  # About page
     as gain-of-function (GOF) or loss-of-function (LOF) based on changes in model prediction probabilities, score differences, and log-odds 
     ratios (LOR). Significance thresholds are defined empirically from the LOR distribution to highlight variants with strong regulatory effects. 
     The data also includes functional annotations from ClinVar, GWAS Catalog, and GTEx eQTL data to link predicted effects with known 
-    clinical and expression traits along with information on nearest gene.
+    clinical and expression traits along with information on nearest gene.""")
     
     data = {
         "Dataset": ["Enhancer GOF", "Enhancer LOF", "Non-enhancer GOF"],
@@ -551,7 +551,8 @@ else:  # About page
     st.markdown("<div style='text-align:center; padding-top:30px;'><h6>Variant Dataset Summary</h6></div>", unsafe_allow_html=True)
     # Static table
     st.table(df)
-    
+
+    st.markdown("""
     **Features:**
     - Advanced filtering by chromosome, position, score change
     - Clinical significance filtering
