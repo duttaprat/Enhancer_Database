@@ -532,9 +532,25 @@ else:  # About page
     The data also includes functional annotations from ClinVar, GWAS Catalog, and GTEx eQTL data to link predicted effects with known 
     clinical and expression traits along with information on nearest gene.
     
-    4. **TF Enhancer LOF** (9,417 variants)
-       - Variants affecting transcription factor binding
-       - Includes 301 unique transcription factors
+    data = {
+        "Dataset": ["Enhancer GOF", "Enhancer LOF", "Non-enhancer GOF"],
+        "Number of Variants": [1917, 2681, 5464],
+        "Description": [
+            "Variants that increase enhancer activity within known enhancers",
+            "Variants that decrease enhancer activity within known enhancers; Affecting 301 TFs",
+            "Variants that create new enhancer activity outside canonical enhancers",
+        ],
+        "Score Interpretation": [
+            "Positive score changes indicate gain of function",
+            "Negative score changes indicate loss of function",
+            "Positive score changes indicate gain of function",
+        ]
+    }
+    df = pd.DataFrame(data)
+    # Centered title
+    st.markdown("<div style='text-align:center; padding-top:30px;'><h6>Variant Dataset Summary</h6></div>", unsafe_allow_html=True)
+    # Static table
+    st.table(df)
     
     **Features:**
     - Advanced filtering by chromosome, position, score change
