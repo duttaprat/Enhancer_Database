@@ -473,7 +473,7 @@ else:  # About page
         from sequence, providing genome-wide enhancer annotation and variant impact prediction.""")
 
     with right_col:
-        st.image("Enhancer.png", caption="Enhancer–promoter interaction mediated by transcription factors, mediator complex, and RNA polymerase II", use_column_width=True)
+        st.image("Enhancer.png", caption="Enhancer–promoter interaction mediated by transcription factors, mediator complex, and RNA polymerase II", width=300)
     
     st.markdown("""
     **Datasets:**
