@@ -537,7 +537,7 @@ else:  # About page
         "Number of Variants": [1917, 2681, 5464],
         "Description": [
             "Variants that increase enhancer activity within known enhancers",
-            "Variants that decrease enhancer activity within known enhancers; Affecting 301 TFs",
+            "Variants that decrease enhancer activity within known enhancers; affecting 301 TFs",
             "Variants that create new enhancer activity outside canonical enhancers",
         ],
         "Score Interpretation": [
@@ -550,7 +550,7 @@ else:  # About page
     # Centered title
     st.markdown("<div style='text-align:center; padding-top:30px;'><h6>Variant Dataset Summary</h6></div>", unsafe_allow_html=True)
     # Static table
-    st.table(df)
+    st.table(df.style.hide(axis="index"))
 
     st.markdown("""
     **Features:**
