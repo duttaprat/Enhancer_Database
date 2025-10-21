@@ -462,13 +462,14 @@ else:  # About page
     <h3>Genomic language model for predicting enhancers and their allele-specific activity in the human genome</h3>
 
     <h5>Overview:</h5>
-
     The DNABERT-Enhancer portal offers an interactive platform to explore candidate gain- and loss-of-function enhancer variants predicted by 
     the DNABERT-Enhancer-350 model using ENCODE SCREEN enhancers (350 bp). It also provides access to genome-wide enhancer predictions across 
     the human reference genome (GRCh38). This web application enables users to visualize, search, and interpret enhancer regions and their 
     potential functional impact in a genomic context.
     </div>
     """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
     
     # Load the image
     img = Image.open("Enhancer.png")
@@ -486,7 +487,6 @@ else:  # About page
         st.markdown("""
         <div style="text-align: justify;">
         <h5>Background:</h5>
-        
         Enhancers are one of the cis-regulatory element which increases the transcription of a target genes while interacting with their target promoters with the assistance of proteins like transcription factors, 
         mediators and RNA polymerase, thereby shaping the characteristics and function of cells and tissues. Any disruption in the ideal function of enhancers due to genetic or epigenetic changes leads to disease conditions. 
         Predicting and deciphering the regulatory logic of enhancers is a challenging problem, due to the intricate sequence features and lack of consistent genetic or epigenetic signatures that can accurately discriminate enhancers 
@@ -529,12 +529,13 @@ else:  # About page
         """,
         unsafe_allow_html=True
     )
-
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    
     st.markdown("""
     <div style="text-align: justify;">
     <h5>Datasets availavle:</h5>
     <h6>1. Candidate variants:</h6>
-    
     The DNABERT-Enhancer identifies candidate regulatory variants by evaluating short variants from dbSNP release 155 (GRCh38) located 
     within enhancer regions and transcription factor (TF) target sites. Variant effects are predicted by substituting alternate alleles into 
     enhancer or TF-target sites within and re-evaluating them using DNABERT-Enhancer-350 and DeepVRegulome, respectively. Variants are classified 
@@ -568,7 +569,6 @@ else:  # About page
     st.markdown("""
     <div style="text-align: justify;">
     <h6>2. Enhancers in Human Genome:</h6>
-    
     The DNABERT-Enhancer-350 model is applied to the human reference genome (GRCh38) to generate genome-wide enhancer predictions. 
     The genome is segmented into 350 bp sequences using a 150 bp sliding window, excluding regions with unidentified bases (‘N’). 
     Each sequence is tokenized into hexamers and evaluated by the model, labeling windows with prediction probabilities ≥ 0.5 as 
@@ -576,22 +576,28 @@ else:  # About page
     enhancer regions, collectively covering 21.53% of the human genome. The predicted enhancers are compared with known enhancer 
     databases at multiple overlap thresholds (5–95%) to assess concordance, and statistical significance is evaluated through permutation 
     testing.
+
+    st.markdown("<br>", unsafe_allow_html=True)
     
     <h5>Features:</h5>
-    
     - Advanced filtering by chromosome, position, score change
     - Clinical significance filtering
     - External database links (GWAS, ClinVar, eQTL)
     - Transcription factor analysis
     - Comparative visualizations
     - Downloadable filtered results
+
+    st.markdown("<br>", unsafe_allow_html=True)
     
     <b>Interpretation:</b>
-    
     - **ScoreChange**: Magnitude of functional impact
     - **LogOddRatio**: Statistical confidence in prediction
     - **Clinical Significance**: Known disease associations
-    
+
+    <h5>Intended use:</h5>
+    This portal is designed for research and exploratory use only. Predictions are computational and should be interpreted as hypothesis-generating, 
+    not diagnostic or clinical evidence.
+   
     Built with Streamlit 🎈
     </div>
         """, unsafe_allow_html=True)
