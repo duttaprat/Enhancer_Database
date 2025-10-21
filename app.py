@@ -553,6 +553,17 @@ else:  # About page
     )
 
     st.markdown("""
+
+    **Enhancers in Human Genome:**
+    
+    The DNABERT-Enhancer-350 model is applied to the human reference genome (GRCh38) to generate genome-wide enhancer predictions. 
+    The genome is segmented into 350 bp sequences using a 150 bp sliding window, excluding regions with unidentified bases (‘N’). 
+    Each sequence is tokenized into hexamers and evaluated by the model, labeling windows with prediction probabilities ≥ 0.5 as 
+    enhancers. Consecutive enhancer-positive windows are merged into continuous regions, resulting in the identification of 1.8M 
+    enhancer regions, collectively covering 21.53% of the human genome. The predicted enhancers are compared with known enhancer 
+    databases at multiple overlap thresholds (5–95%) to assess concordance, and statistical significance is evaluated through permutation 
+    testing.
+    
     **Features:**
     - Advanced filtering by chromosome, position, score change
     - Clinical significance filtering
