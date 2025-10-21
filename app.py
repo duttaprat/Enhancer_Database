@@ -479,13 +479,15 @@ else:  # About page
     with left_col:
         st.markdown("""
         **Background:**
-
+        <div style="text-align: justify;">
         Enhancers are one of the cis-regulatory element which increases the transcription of a target genes while interacting with their target promoters with the assistance of proteins like transcription factors, 
         mediators and RNA polymerase, thereby shaping the characteristics and function of cells and tissues. Any disruption in the ideal function of enhancers due to genetic or epigenetic changes leads to disease conditions. 
         Predicting and deciphering the regulatory logic of enhancers is a challenging problem, due to the intricate sequence features and lack of consistent genetic or epigenetic signatures that can accurately discriminate enhancers 
         from other genomic regions. **DNABERT-Enhancer**, a novel enhancer prediction method developed by applying DNABERT pre-trained language model on the human genome, learns the "language of DNA" and predict enhancer activity directly 
         from sequence, providing genome-wide enhancer annotation and variant impact prediction. These genome-wide enhancers and candidate genetic variants predicted by DNABERT-Enhancer provide valuable resources for 
-        genome interpretation in functional and clinical genomics studies.""")
+        genome interpretation in functional and clinical genomics studies.
+        </div>
+        """, unsafe_allow_html=True)
 
     with right_col:
         # Display image with padding from top
