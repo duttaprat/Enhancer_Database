@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 from PIL import Image
 import io
+import base64
 
 # Page configuration
 st.set_page_config(
@@ -463,7 +464,17 @@ else:  # About page
     The DNABERT-Enhancer portal offers an interactive platform to explore candidate gain- and loss-of-function enhancer variants predicted by the DNABERT-Enhancer-350 model using ENCODE SCREEN enhancers (350 bp).
     It also provides access to genome-wide enhancer predictions across the human reference genome (GRCh38). This web application enables users to visualize, search, and interpret enhancer regions and their potential functional impact in a genomic context.""")
 
-    
+    # Load the image
+    img = Image.open("Enhancer.png")
+
+    # Save to a buffer to preserve quality
+    buf = io.BytesIO()
+    img.save(buf, format="PNG", optimize=True)
+    buf.seek(0)
+
+    # Encode image in base64
+    base64_img = base64.b64encode(buf.read()).decode("utf-8")
+
     left_col, right_col = st.columns([2, 1], gap="large")
     with left_col:
         st.markdown("""
@@ -476,22 +487,17 @@ else:  # About page
         from sequence, providing genome-wide enhancer annotation and variant impact prediction.""")
 
     with right_col:
-        img = Image.open("Enhancer.png")
-        buf = io.BytesIO()
-        img.save(buf, format="PNG", optimize=True)  # keep PNG quality
-        buf.seek(0)
-
         # Display image with padding from top
         st.markdown(
-            f"""
-            <div style="padding-top: 40px; text-align: center;">
-                <h4 style="margin-bottom: 15px;">
-                    Enhancer–promoter interaction mediated by transcription factors, mediator complex, and RNA polymerase II
-                </h4>
-                <img src="data:image/png;base64,{base64_img}" width="300">
-            </div>
-            """,
-            unsafe_allow_html=True
+        f"""
+        <div style="padding-top: 40px; text-align: center;">
+            <h4 style="margin-bottom: 15px;">
+                Enhancer–promoter interaction mediated by transcription factors, mediator complex, and RNA polymerase II
+            </h4>
+            <img src="data:image/png;base64,{base64_img}" width="300">
+        </div>
+        """,
+        unsafe_allow_html=True
         )
     
     st.markdown("""
