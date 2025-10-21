@@ -478,8 +478,9 @@ else:  # About page
     left_col, right_col = st.columns([2, 1], gap="large")
     with left_col:
         st.markdown("""
-        **Background:**
         <div style="text-align: justify;">
+        **Background:**
+        
         Enhancers are one of the cis-regulatory element which increases the transcription of a target genes while interacting with their target promoters with the assistance of proteins like transcription factors, 
         mediators and RNA polymerase, thereby shaping the characteristics and function of cells and tissues. Any disruption in the ideal function of enhancers due to genetic or epigenetic changes leads to disease conditions. 
         Predicting and deciphering the regulatory logic of enhancers is a challenging problem, due to the intricate sequence features and lack of consistent genetic or epigenetic signatures that can accurately discriminate enhancers 
@@ -524,6 +525,7 @@ else:  # About page
     )
 
     st.markdown("""
+    <div style="text-align: justify;">
     **Candidate variants:**
     
     The DNABERT-Enhancer identifies candidate regulatory variants by evaluating short variants from dbSNP release 155 (GRCh38) located 
@@ -532,7 +534,9 @@ else:  # About page
     as gain-of-function (GOF) or loss-of-function (LOF) based on changes in model prediction probabilities, score differences, and log-odds 
     ratios (LOR). Significance thresholds are defined empirically from the LOR distribution to highlight variants with strong regulatory effects. 
     The data also includes functional annotations from ClinVar, GWAS Catalog, and GTEx eQTL data to link predicted effects with known 
-    clinical and expression traits along with information on nearest gene.""")
+    clinical and expression traits along with information on nearest gene.
+    </div>
+        """, unsafe_allow_html=True)
     
     data = {
         "Dataset": ["Enhancer GOF", "Enhancer LOF", "Non-enhancer GOF"],
@@ -555,7 +559,7 @@ else:  # About page
     )
 
     st.markdown("""
-
+    <div style="text-align: justify;">
     **Enhancers in Human Genome:**
     
     The DNABERT-Enhancer-350 model is applied to the human reference genome (GRCh38) to generate genome-wide enhancer predictions. 
@@ -580,4 +584,5 @@ else:  # About page
     - **Clinical Significance**: Known disease associations
     
     Built with Streamlit 🎈
-    """)
+    </div>
+        """, unsafe_allow_html=True)
