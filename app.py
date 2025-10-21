@@ -500,6 +500,26 @@ else:  # About page
         """,
         unsafe_allow_html=True
         )
+
+    img2 = Image.open("Graphical_abstract.png")
+    # Save to buffer to preserve quality
+    buf = io.BytesIO()
+    img2.save(buf, format="PNG", optimize=True)
+    buf.seek(0)
+    # Encode to base64
+    base64_img2 = base64.b64encode(buf.read()).decode("utf-8")
+    # Display centered with small width
+    st.markdown(
+        f"""
+        <div style="text-align: center; padding-top: 30px;">
+            <img src="data:image/png;base64,{base64_img2}" width="400">
+            <h6 style="margin-bottom: 15px;">
+                DNABERT-Enhancer Model : Study outline
+            </h6>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
     
     st.markdown("""
     **Datasets:**
