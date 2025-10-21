@@ -5,7 +5,7 @@ import plotly.express as px
 
 # Page configuration
 st.set_page_config(
-    page_title="Functional Genomics Browser",
+    page_title="DNABERT-Enhancer Portal",
     page_icon="🧬",
     layout="wide"
 )
