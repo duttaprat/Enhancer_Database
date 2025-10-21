@@ -479,7 +479,7 @@ else:  # About page
     with left_col:
         st.markdown("""
         <div style="text-align: justify;">
-        **Background:**
+        <b>Background:</b>
         
         Enhancers are one of the cis-regulatory element which increases the transcription of a target genes while interacting with their target promoters with the assistance of proteins like transcription factors, 
         mediators and RNA polymerase, thereby shaping the characteristics and function of cells and tissues. Any disruption in the ideal function of enhancers due to genetic or epigenetic changes leads to disease conditions. 
@@ -526,7 +526,7 @@ else:  # About page
 
     st.markdown("""
     <div style="text-align: justify;">
-    **Candidate variants:**
+    <b>Candidate variants:</b>
     
     The DNABERT-Enhancer identifies candidate regulatory variants by evaluating short variants from dbSNP release 155 (GRCh38) located 
     within enhancer regions and transcription factor (TF) target sites. Variant effects are predicted by substituting alternate alleles into 
@@ -560,7 +560,7 @@ else:  # About page
 
     st.markdown("""
     <div style="text-align: justify;">
-    **Enhancers in Human Genome:**
+    <b>Enhancers in Human Genome:</b>
     
     The DNABERT-Enhancer-350 model is applied to the human reference genome (GRCh38) to generate genome-wide enhancer predictions. 
     The genome is segmented into 350 bp sequences using a 150 bp sliding window, excluding regions with unidentified bases (‘N’). 
@@ -570,7 +570,7 @@ else:  # About page
     databases at multiple overlap thresholds (5–95%) to assess concordance, and statistical significance is evaluated through permutation 
     testing.
     
-    **Features:**
+    <b>Features:</b>
     - Advanced filtering by chromosome, position, score change
     - Clinical significance filtering
     - External database links (GWAS, ClinVar, eQTL)
@@ -578,7 +578,7 @@ else:  # About page
     - Comparative visualizations
     - Downloadable filtered results
     
-    **Interpretation:**
+    <b>Interpretation:</b>
     - **ScoreChange**: Magnitude of functional impact
     - **LogOddRatio**: Statistical confidence in prediction
     - **Clinical Significance**: Known disease associations
