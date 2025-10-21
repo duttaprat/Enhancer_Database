@@ -520,21 +520,17 @@ else:  # About page
         """,
         unsafe_allow_html=True
     )
-    
+
     st.markdown("""
-    **Datasets:**
+    **Candidate variants:**
     
-    1. **Enhancer GOF** (1,918 variants)
-       - Variants that increase enhancer activity
-       - Positive score changes indicate gain of function
-    
-    2. **Enhancer LOF** (2,681 variants)
-       - Variants that decrease enhancer activity
-       - Negative score changes indicate loss of function
-    
-    3. **Non-enhancer GOF** (5,468 variants)
-       - Variants creating new enhancer activity
-       - Occurs in regions not normally active as enhancers
+    The DNABERT-Enhancer identifies candidate regulatory variants by evaluating short variants from dbSNP release 155 (GRCh38) located 
+    within enhancer regions and transcription factor (TF) target sites. Variant effects are predicted by substituting alternate alleles into 
+    enhancer or TF-target sites within and re-evaluating them using DNABERT-Enhancer-350 and DeepVRegulome, respectively. Variants are classified 
+    as gain-of-function (GOF) or loss-of-function (LOF) based on changes in model prediction probabilities, score differences, and log-odds 
+    ratios (LOR). Significance thresholds are defined empirically from the LOR distribution to highlight variants with strong regulatory effects. 
+    The data also includes functional annotations from ClinVar, GWAS Catalog, and GTEx eQTL data to link predicted effects with known 
+    clinical and expression traits along with information on nearest gene.
     
     4. **TF Enhancer LOF** (9,417 variants)
        - Variants affecting transcription factor binding
