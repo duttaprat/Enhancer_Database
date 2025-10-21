@@ -547,10 +547,10 @@ else:  # About page
         ]
     }
     df = pd.DataFrame(data)
-    # Centered title
-    st.markdown("<div style='text-align:center; padding-top:30px;'><h6>Variant Dataset Summary</h6></div>", unsafe_allow_html=True)
-    # Static table
-    st.table(df.style.hide(axis="index"))
+    st.markdown(
+        df.to_html(index=False, justify="center"),
+        unsafe_allow_html=True
+    )
 
     st.markdown("""
     **Features:**
