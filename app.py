@@ -467,7 +467,6 @@ The DNABERT-Enhancer portal offers an interactive platform to explore candidate 
 the DNABERT-Enhancer-350 model using ENCODE SCREEN enhancers (350 bp). It also provides access to genome-wide enhancer predictions across 
 the human reference genome (GRCh38). This web application enables users to visualize, search, and interpret enhancer regions and their 
 potential functional impact in a genomic context.
-
 </div>
 """, unsafe_allow_html=True)
     
