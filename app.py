@@ -491,9 +491,9 @@ else:  # About page
         st.markdown(
         f"""
         <div style="padding-top: 40px; text-align: center;">
-            <h4 style="margin-bottom: 15px;">
+            <h6 style="margin-bottom: 15px;">
                 Enhancer–promoter interaction mediated by transcription factors, mediator complex, and RNA polymerase II
-            </h4>
+            </h6>
             <img src="data:image/png;base64,{base64_img}" width="300">
         </div>
         """,
