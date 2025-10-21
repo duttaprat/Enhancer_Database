@@ -532,7 +532,8 @@ else:  # About page
 
     st.markdown("""
     <div style="text-align: justify;">
-    <h5>Candidate variants:</h5>
+    <h5>Datasets availavle:</h5>
+    <h6>1. Candidate variants:</h6>
     
     The DNABERT-Enhancer identifies candidate regulatory variants by evaluating short variants from dbSNP release 155 (GRCh38) located 
     within enhancer regions and transcription factor (TF) target sites. Variant effects are predicted by substituting alternate alleles into 
@@ -566,7 +567,7 @@ else:  # About page
 
     st.markdown("""
     <div style="text-align: justify;">
-    <h5>Enhancers in Human Genome:</h5>
+    <h6>2. Enhancers in Human Genome:</h6>
     
     The DNABERT-Enhancer-350 model is applied to the human reference genome (GRCh38) to generate genome-wide enhancer predictions. 
     The genome is segmented into 350 bp sequences using a 150 bp sliding window, excluding regions with unidentified bases (‘N’). 
