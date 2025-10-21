@@ -475,7 +475,7 @@ else:  # About page
         from sequence, providing genome-wide enhancer annotation and variant impact prediction.""")
 
     with right_col:
-        st.image(img = Image.open("Enhancer.png")
+        img = Image.open("Enhancer.png")
         buf = io.BytesIO()
         img.save(buf, format="PNG", optimize=True)  # keep PNG quality
         buf.seek(0)
