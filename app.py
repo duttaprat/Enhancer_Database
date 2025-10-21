@@ -457,13 +457,20 @@ elif page == "🔬 Analysis":
 else:  # About page
     st.title("About")
     st.markdown("""
-    ### Genomic language model for predicting enhancers and their allele-specific activity in the human genome
+<div style="text-align: justify;">
 
-    **Overview:**
+<h3>Genomic language model for predicting enhancers and their allele-specific activity in the human genome</h3>
+
+<b>Overview:</b>
+
+The DNABERT-Enhancer portal offers an interactive platform to explore candidate gain- and loss-of-function enhancer variants predicted by 
+the DNABERT-Enhancer-350 model using ENCODE SCREEN enhancers (350 bp). It also provides access to genome-wide enhancer predictions across 
+the human reference genome (GRCh38). This web application enables users to visualize, search, and interpret enhancer regions and their 
+potential functional impact in a genomic context.
+
+</div>
+""", unsafe_allow_html=True)
     
-    The DNABERT-Enhancer portal offers an interactive platform to explore candidate gain- and loss-of-function enhancer variants predicted by the DNABERT-Enhancer-350 model using ENCODE SCREEN enhancers (350 bp).
-    It also provides access to genome-wide enhancer predictions across the human reference genome (GRCh38). This web application enables users to visualize, search, and interpret enhancer regions and their potential functional impact in a genomic context.""")
-
     # Load the image
     img = Image.open("Enhancer.png")
 
@@ -571,6 +578,7 @@ else:  # About page
     testing.
     
     <b>Features:</b>
+    
     - Advanced filtering by chromosome, position, score change
     - Clinical significance filtering
     - External database links (GWAS, ClinVar, eQTL)
@@ -579,6 +587,7 @@ else:  # About page
     - Downloadable filtered results
     
     <b>Interpretation:</b>
+    
     - **ScoreChange**: Magnitude of functional impact
     - **LogOddRatio**: Statistical confidence in prediction
     - **Clinical Significance**: Known disease associations
