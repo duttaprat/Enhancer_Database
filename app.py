@@ -461,7 +461,7 @@ else:  # About page
     The DNABERT-Enhancer portal offers an interactive platform to explore candidate gain- and loss-of-function enhancer variants predicted by the DNABERT-Enhancer-350 model using ENCODE SCREEN enhancers (350 bp).
     It also provides access to genome-wide enhancer predictions across the human reference genome (GRCh38). This web application enables users to visualize, search, and interpret enhancer regions and their potential functional impact in a genomic context.""")
 
-    left_col, right_col = st.columns([2, 1])
+    left_col, right_col = st.columns([2, 1], gap="large")
     with left_col:
         st.markdown("""
         **Background:**
@@ -473,7 +473,8 @@ else:  # About page
         from sequence, providing genome-wide enhancer annotation and variant impact prediction.""")
 
     with right_col:
-        st.image("Enhancer.png", caption="Enhancer–promoter interaction mediated by transcription factors, mediator complex, and RNA polymerase II", width=300)
+        st.image("Enhancer.png", caption="Enhancer–promoter interaction mediated by transcription factors, 
+        mediator complex, and RNA polymerase II", width=300)
     
     st.markdown("""
     **Datasets:**
