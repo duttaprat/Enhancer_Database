@@ -511,8 +511,8 @@ else:  # About page
     # Display centered with small width
     st.markdown(
         f"""
-        <div style="text-align: center; padding-top: 30px;">
-            <img src="data:image/png;base64,{base64_img2}" width="400">
+        <div style="text-align: center; padding-top: 10px;">
+            <img src="data:image/png;base64,{base64_img2}" width="500">
             <h6 style="margin-bottom: 15px;">
                 DNABERT-Enhancer Model : Study outline
             </h6>
