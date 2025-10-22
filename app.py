@@ -534,7 +534,7 @@ else:  # About page
     
     st.markdown("""
     <div style="text-align: justify;">
-    <h5>Datasets availavle:</h5>
+    <h5>Datasets available:</h5>
     <h6>1. Candidate variants:</h6>
     The DNABERT-Enhancer identifies candidate regulatory variants by evaluating short variants from dbSNP release 155 (GRCh38) located 
     within enhancer regions and transcription factor (TF) target sites. Variant effects are predicted by substituting alternate alleles into 
@@ -626,7 +626,20 @@ else:  # About page
     If you use DNABERT-Enhancer or data from this portal, please cite:<br>
     Sathian R, Dutta P, Ay F, Davuluri RV. <b>Genomic Language Model for Predicting Enhancers and Their Allele-Specific Activity in the Human Genome</b>, 2025.  
     <a href="https://doi.org/10.1101/2025.03.18.644040" target="_blank">DOI: 10.1101/2025.03.18.644040</a>
+    </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
     
+    st.markdown("""
+    <div style="text-align: justify;">
+    <h5>Acknowledgements:</h5>
+    We thank all members of the Davuluri lab ( 548 The State University of New York at Stony Brook) and Dante Bolzan 
+    (Ay Lab - La Jolla Institute for Immunology) for critical discussions and helpful 
+    advice. This work was financially supported by grants from National Library of Medicine/National
+    Institutes of Health funding – [R01LM01372201 to R.D., R35GM128938 to F.A]<br>
+    For inquiries or collaborations, please contact: Tel: +1 (631) 638-2590; Email: Ramana.Davuluri@stonybrookmedicine.edu.<br>
+    <br>
     Built with Streamlit 🎈
     </div>
         """, unsafe_allow_html=True)
