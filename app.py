@@ -98,6 +98,13 @@ with st.sidebar:
     st.markdown("**An interactive platform for exploration of predictions by DNABERT-Enhancer-350 model**")
     st.divider()
     
+    page = st.radio(
+        "Navigation",
+        [ "ℹ️ About", "📊 Browse Data", "📈 Visualize", "🔬 Analysis"],
+        label_visibility="collapsed"
+    )
+    st.divider()
+    
     # Dataset selector
     selected_dataset = st.selectbox(
         "Select Dataset",
@@ -108,13 +115,6 @@ with st.sidebar:
     st.markdown(f"<div class='info-box'>{dataset_info[selected_dataset]['description']}</div>", 
                 unsafe_allow_html=True)
     
-    st.divider()
-    
-    page = st.radio(
-        "Navigation",
-        [ "ℹ️ About", "📊 Browse Data", "📈 Visualize", "🔬 Analysis"],
-        label_visibility="collapsed"
-    )
 
 # Get current dataset
 current_data = st.session_state.datasets[selected_dataset].copy()
