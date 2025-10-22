@@ -583,26 +583,30 @@ else:  # About page
     
     st.markdown("""
     <div style="text-align: justify;">
-    <h5>Features:</h5>
-    - Advanced filtering by chromosome, position, score change
-    - Clinical significance filtering
-    - External database links (GWAS, ClinVar, eQTL)
-    - Transcription factor analysis
-    - Comparative visualizations
-    - Downloadable filtered results
+        <h5>Features:</h5>
+        <ul>
+            <li>Advanced filtering by chromosome, position, and score change</li>
+            <li>Clinical significance filtering</li>
+            <li>External database links (GWAS, ClinVar, eQTL)</li>
+            <li>Transcription factor analysis</li>
+            <li>Comparative visualizations</li>
+            <li>Downloadable filtered results</li>
+        </ul>
     </div>
-        """, unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
     st.markdown("""
     <div style="text-align: justify;">
-    <b>Interpretation:</b>
-    - **ScoreChange**: Magnitude of functional impact
-    - **LogOddRatio**: Statistical confidence in prediction
-    - **Clinical Significance**: Known disease associations
+        <h5>Interpretation:</h5>
+        <ul>
+            <li><b>ScoreChange:</b> Magnitude of functional impact</li>
+            <li><b>LogOddRatio:</b> Statistical confidence in prediction</li>
+            <li><b>Clinical Significance:</b> Known disease associations</li>
+        </ul>
     </div>
-        """, unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
     
@@ -619,7 +623,7 @@ else:  # About page
     st.markdown("""
     <div style="text-align: justify;">
     <h5>Citation:</h5>
-    If you use DNABERT-Enhancer or data from this portal, please cite:
+    If you use DNABERT-Enhancer or data from this portal, please cite:<br>
     Sathian R, Dutta P, Ay F, Davuluri RV. <b>Genomic Language Model for Predicting Enhancers and Their Allele-Specific Activity in the Human Genome</b>, 2025.  
     <a href="https://doi.org/10.1101/2025.03.18.644040" target="_blank">DOI: 10.1101/2025.03.18.644040</a>
     
