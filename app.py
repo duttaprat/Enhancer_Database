@@ -455,7 +455,7 @@ elif page == "🔬 Analysis":
         """)
 
 else:  # About page
-    st.title("About")
+    st.title("About DNABERT-Enhancer portal")
     st.markdown("""
     <div style="text-align: justify;">
 
