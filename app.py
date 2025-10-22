@@ -576,9 +576,13 @@ else:  # About page
     enhancer regions, collectively covering 21.53% of the human genome. The predicted enhancers are compared with known enhancer 
     databases at multiple overlap thresholds (5–95%) to assess concordance, and statistical significance is evaluated through permutation 
     testing.
+    </div>
+        """, unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
     
+    st.markdown("""
+    <div style="text-align: justify;">
     <h5>Features:</h5>
     - Advanced filtering by chromosome, position, score change
     - Clinical significance filtering
@@ -586,17 +590,29 @@ else:  # About page
     - Transcription factor analysis
     - Comparative visualizations
     - Downloadable filtered results
+    </div>
+        """, unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
-    
+
+    st.markdown("""
+    <div style="text-align: justify;">
     <b>Interpretation:</b>
     - **ScoreChange**: Magnitude of functional impact
     - **LogOddRatio**: Statistical confidence in prediction
     - **Clinical Significance**: Known disease associations
+    </div>
+        """, unsafe_allow_html=True)
 
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div style="text-align: justify;">
     <h5>Intended use:</h5>
     This portal is designed for research and exploratory use only. Predictions are computational and should be interpreted as hypothesis-generating, 
     not diagnostic or clinical evidence.
+    </div>
+        """, unsafe_allow_html=True)
    
     Built with Streamlit 🎈
     </div>
