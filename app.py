@@ -459,8 +459,6 @@ else:  # About page
     st.markdown("""
     <div style="text-align: justify;">
 
-    <h3>Genomic language model for predicting enhancers and their allele-specific activity in the human genome</h3>
-
     <h5>Overview:</h5>
     The DNABERT-Enhancer portal offers an interactive platform to explore candidate gain- and loss-of-function enhancer variants predicted by 
     the DNABERT-Enhancer-350 model using ENCODE SCREEN enhancers (350 bp). It also provides access to genome-wide enhancer predictions across 
