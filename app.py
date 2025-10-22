@@ -613,7 +613,16 @@ else:  # About page
     not diagnostic or clinical evidence.
     </div>
         """, unsafe_allow_html=True)
-   
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div style="text-align: justify;">
+    <h5>Citation:</h5>
+    If you use DNABERT-Enhancer or data from this portal, please cite:
+    Sathian R, Dutta P, Ay F, Davuluri RV. <b>Genomic Language Model for Predicting Enhancers and Their Allele-Specific Activity in the Human Genome</b>, 2025.  
+    <a href="https://doi.org/10.1101/2025.03.18.644040" target="_blank">DOI: 10.1101/2025.03.18.644040</a>
+    
     Built with Streamlit 🎈
     </div>
         """, unsafe_allow_html=True)
