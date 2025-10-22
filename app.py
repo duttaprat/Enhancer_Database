@@ -94,8 +94,8 @@ dataset_info = {
 
 # Sidebar
 with st.sidebar:
-    st.markdown("### 🧬 DNABERT-Enhancer Portal")
-    st.markdown("**Interactive exploration platform of predictions**")
+    st.markdown("## 🧬 DNABERT-Enhancer Portal")
+    st.markdown("**An interactive platform for exploration of predictions by DNABERT-Enhancer-350 model**")
     st.divider()
     
     # Dataset selector
