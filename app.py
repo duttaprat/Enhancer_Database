@@ -91,17 +91,23 @@ if page == "📊 Browse Data":
 
     st.markdown("""
     <style>
-    div[data-baseweb="tab"] > button {
-        font-family: 'Arial', sans-serif; /* Change font */
-        font-size: 16px; /* Adjust size */
-        font-weight: 600; /* Make bold */
-        color: #2E86C1; /* Custom text color */
+        /* ... your existing CSS ... */
+
+        /* Target the tab label container element */
+        .stTabs [data-testid="stWaiver"] button {
+            /* Example: Change font size, color, and weight */
+            font-size: 16px; /* Adjust as needed, e.g., 18px for larger */
+            font-weight: 600; /* Adjust as needed, e.g., 700 for bold */
+            color: #3182CE; /* Optional: Change color, e.g., a blue shade */
+            font-family: Arial, sans-serif; /* Optional: Change font family */
         }
 
-    div[data-baseweb="tab"] > button[aria-selected="true"] {
-        color: #1B4F72; /* Active tab color */
-        border-bottom: 3px solid #1B4F72; /* Highlight active tab */
+        /* Target the selected tab (optional: to make it stand out more) */
+        .stTabs [data-testid="stWaiver"] button[aria-selected="true"] {
+            color: #085D9E; /* Darker color for the active tab */
+            border-bottom: 2px solid #085D9E; /* Optional: Thicker or colored bottom border */
         }
+
     </style>
     """, unsafe_allow_html=True)
     
