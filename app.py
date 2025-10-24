@@ -89,6 +89,22 @@ if page == "📊 Browse Data":
     # Header
     st.title("DNABERT-Enhancer prediction data")
 
+    st.markdown("""
+    <style>
+    div[data-baseweb="tab"] > button {
+        font-family: 'Arial', sans-serif; /* Change font */
+        font-size: 16px; /* Adjust size */
+        font-weight: 600; /* Make bold */
+        color: #2E86C1; /* Custom text color */
+        }
+
+    div[data-baseweb="tab"] > button[aria-selected="true"] {
+        color: #1B4F72; /* Active tab color */
+        border-bottom: 3px solid #1B4F72; /* Highlight active tab */
+        }
+    </style>
+    """, unsafe_allow_html=True)
+    
     tab1, tab2 = st.tabs(["Candidate Variants", "Enhancers in Human Genome"])
     with tab1:
         st.markdown(
