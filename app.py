@@ -91,26 +91,19 @@ if page == "📊 Browse Data":
 
     st.markdown("""
     <style>
-        /* ... your existing CSS ... */
-
-        /* Target the tab label container element */
         .stTabs [data-testid="stWaiver"] button {
-            /* Example: Change font size, color, and weight */
-            font-size: 16px; /* Adjust as needed, e.g., 18px for larger */
-            font-weight: 600; /* Adjust as needed, e.g., 700 for bold */
-            color: #3182CE; /* Optional: Change color, e.g., a blue shade */
-            font-family: Arial, sans-serif; /* Optional: Change font family */
+            font-size: 16px;
+            font-weight: 700;
+            color: #3182CE;
+            font-family: Arial, sans-serif;
         }
 
-        /* Target the selected tab (optional: to make it stand out more) */
         .stTabs [data-testid="stWaiver"] button[aria-selected="true"] {
-            color: #085D9E; /* Darker color for the active tab */
-            border-bottom: 2px solid #085D9E; /* Optional: Thicker or colored bottom border */
+            color: #085D9E;
+            border-bottom: 2px solid #085D9E;
         }
-
     </style>
     """, unsafe_allow_html=True)
-    
     tab1, tab2 = st.tabs(["Candidate Variants", "Enhancers in Human Genome"])
     with tab1:
         st.markdown(
