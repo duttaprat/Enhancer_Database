@@ -216,7 +216,7 @@ if page == "📊 Browse Data":
 
         with col2:
     		# --- Search Bar and Clear Button ---
-            search_col, clear_col = st.columns([5, 0.6])
+            search_col, clear_col = st.columns([4, 0.5], gap="small")
 
             if "search_query" not in st.session_state:
                 st.session_state.search_query = ""
