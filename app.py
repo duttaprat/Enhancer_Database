@@ -53,6 +53,16 @@ st.markdown("""
         font-size: 0.85rem;
         font-weight: 600;
     }
+    .stTabs [data-testid="stWaiver"] button {
+        font-size: 16px;
+        font-weight: 700;
+        color: #3182CE;
+        font-family: Arial, sans-serif;
+    }
+    .stTabs [data-testid="stWaiver"] button[aria-selected="true"] {
+        color: #085D9E;
+        border-bottom: 2px solid #085D9E;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -89,21 +99,6 @@ if page == "📊 Browse Data":
     # Header
     st.title("DNABERT-Enhancer prediction data")
 
-    st.markdown("""
-    <style>
-        .stTabs [data-testid="stWaiver"] button {
-            font-size: 16px;
-            font-weight: 700;
-            color: #3182CE;
-            font-family: Arial, sans-serif;
-        }
-
-        .stTabs [data-testid="stWaiver"] button[aria-selected="true"] {
-            color: #085D9E;
-            border-bottom: 2px solid #085D9E;
-        }
-    </style>
-    """, unsafe_allow_html=True)
     tab1, tab2 = st.tabs(["Candidate Variants", "Enhancers in Human Genome"])
     with tab1:
         st.markdown(
