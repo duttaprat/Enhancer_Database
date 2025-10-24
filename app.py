@@ -228,7 +228,9 @@ if page == "📊 Browse Data":
                     value=st.session_state.search_query,
                     key=f"search_{st.session_state.filter_key}"
                 )
-            st.markdown(
+            
+            with clear_col:
+                st.markdown(
                     """
                     <style>
                     div[data-testid="stButton"] button {
@@ -240,7 +242,6 @@ if page == "📊 Browse Data":
                     """,
                     unsafe_allow_html=True,
                 )
-            with clear_col:
                 if st.button("❌", help="Clear Search"):
                     st.session_state.search_query = ""
                     st.session_state.filter_key += 1
