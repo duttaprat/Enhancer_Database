@@ -228,7 +228,18 @@ if page == "📊 Browse Data":
                     value=st.session_state.search_query,
                     key=f"search_{st.session_state.filter_key}"
                 )
-
+            st.markdown(
+                    """
+                    <style>
+                    div[data-testid="stButton"] button {
+                        padding: 0.2rem 0.4rem;
+                        font-size: 0.8rem;
+                        margin-top: 0.8rem; /* vertically align with search bar */
+                    }
+                    </style>
+                    """,
+                    unsafe_allow_html=True,
+                )
             with clear_col:
                 if st.button("❌", help="Clear Search"):
                     st.session_state.search_query = ""
