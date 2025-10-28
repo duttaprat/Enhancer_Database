@@ -53,7 +53,12 @@ st.markdown("""
         font-size: 0.85rem;
         font-weight: 600;
     }
-    .stTabs [data-testid="stWaiver"] button {
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
+.stTabs [data-testid="stWaiver"] button {
         font-size: 16px;
         font-weight: 700;
         color: #3182CE;
@@ -76,7 +81,10 @@ def load_data():
     }
     combined_df = pd.concat(detail_datasets.values(), ignore_index=True)
     return combined_df
-    
+
+# If there's a variant in URL, default to Browse
+query_params = st.experimental_get_query_params()
+variant_in_url = "variant" in query_params and query_params.get("variant")
 
 # Sidebar
 with st.sidebar:
@@ -84,16 +92,17 @@ with st.sidebar:
     st.markdown("**An interactive platform for exploration of predictions by DNABERT-Enhancer-350 model**")
     st.divider()
 
-    with st.sidebar:
-        st.markdown("### Navigation")
-        page = st.radio(
-            "",
-            ["ℹ️ About", "📊 Browse Data"],
-            index=0,
-            label_visibility="collapsed",
-            horizontal=False
-        )
-  
+    st.markdown("### Navigation")
+    # default_index selects Browse if variant present
+    default_index = 1 if variant_in_url else 0
+    page = st.radio(
+        "",
+        ["ℹ️ About", "📊 Browse Data"],
+        index=default_index,
+        label_visibility="collapsed",
+        horizontal=False
+    )
+
 # Main content
 if page == "📊 Browse Data":
     # Header
@@ -111,7 +120,6 @@ if page == "📊 Browse Data":
         )
         
         combined_df = load_data()
-        # st.write("Columns in combined_df:", combined_df.columns.tolist())
         columns_order = [
             "ID","chromosome","region_coordinates","dbsnp_id","variant_start","variant_end","reference_nucleotide",
             "alternative_nucleotide","reference_probability","alternative_probability","ScoreChange","LogOddRatio",
@@ -119,9 +127,9 @@ if page == "📊 Browse Data":
             "transcription_factor","tf_reference_probability","tf_alternative_probability","tf_ScoreChange","tf_LogOddRatio",
             "gene","strand","distance","element_coordinates","variant_coordinates"
         ]
-        combined_df = combined_df[columns_order]
-
-        col1, col2 = st.columns([1, 2], gap="large")
+        # ensure columns exist before reordering
+        combined_df = combined_df[[c for c in columns_order if c in combined_df.columns]]
+        col1, col2 = st.columns([1, 4], gap="medium")
 
         with col1:
             st.markdown(
@@ -138,16 +146,30 @@ if page == "📊 Browse Data":
                 st.session_state.filter_key = 0
 
             if "lor_range" not in st.session_state:
-                st.session_state.lor_range = (
-                    float(combined_df["LogOddRatio"].min()),
-                    float(combined_df["LogOddRatio"].max())
-                )
+                if "LogOddRatio" in combined_df.columns:
+                    st.session_state.lor_range = (
+                        float(combined_df["LogOddRatio"].min()),
+                        float(combined_df["LogOddRatio"].max())
+                    )
+                else:
+                    st.session_state.lor_range = (0.0, 1.0)
 
-            # Dropdown options
-            effect_options = ["All"] + sorted(combined_df["predicted_functional_effect"].dropna().unique())
-            class_options = ["All"] + sorted(combined_df["class"].dropna().unique())
-            chrom_options = ["All"] + sorted(combined_df["chromosome"].dropna().unique())
-            assoc_options = ["All"] + sorted(combined_df["reported_clinical_association"].dropna().unique())
+            # Dropdown options (guard missing columns)
+            effect_options = ["All"]
+            if "predicted_functional_effect" in combined_df.columns:
+                effect_options += sorted(combined_df["predicted_functional_effect"].dropna().unique().tolist())
+
+            class_options = ["All"]
+            if "class" in combined_df.columns:
+                class_options += sorted(combined_df["class"].dropna().unique().tolist())
+
+            chrom_options = ["All"]
+            if "chromosome" in combined_df.columns:
+                chrom_options += sorted(combined_df["chromosome"].dropna().unique().tolist())
+
+            assoc_options = ["All"]
+            if "reported_clinical_association" in combined_df.columns:
+                assoc_options += sorted(combined_df["reported_clinical_association"].dropna().unique().tolist())
 
             # --- Widgets (no direct assignment to session_state) ---
             selected_effect = st.selectbox(
@@ -186,7 +208,11 @@ if page == "📊 Browse Data":
             )
 
             # Slider
-            min_lor, max_lor = float(combined_df["LogOddRatio"].min()), float(combined_df["LogOddRatio"].max())
+            if "LogOddRatio" in combined_df.columns:
+                min_lor, max_lor = float(combined_df["LogOddRatio"].min()), float(combined_df["LogOddRatio"].max())
+            else:
+                min_lor, max_lor = 0.0, 1.0
+
             lor_range = st.slider(
                 "LogOddRatio range",
                 min_lor, max_lor,
@@ -203,29 +229,24 @@ if page == "📊 Browse Data":
             # --- FILTERING LOGIC ---
             filtered_df = combined_df.copy()
 
-            if selected_effect != "All":
+            if selected_effect != "All" and "predicted_functional_effect" in filtered_df.columns:
                 filtered_df = filtered_df[filtered_df["predicted_functional_effect"] == selected_effect]
-            if selected_class != "All":
+            if selected_class != "All" and "class" in filtered_df.columns:
                 filtered_df = filtered_df[filtered_df["class"] == selected_class]
-            if selected_chrom != "All":
+            if selected_chrom != "All" and "chromosome" in filtered_df.columns:
                 filtered_df = filtered_df[filtered_df["chromosome"] == selected_chrom]
-            if selected_assoc != "All":
+            if selected_assoc != "All" and "reported_clinical_association" in filtered_df.columns:
                 filtered_df = filtered_df[filtered_df["reported_clinical_association"] == selected_assoc]
 
             min_lor_val, max_lor_val = lor_range
-            filtered_df = filtered_df[
-                (filtered_df["LogOddRatio"] >= min_lor_val) &
-                (filtered_df["LogOddRatio"] <= max_lor_val)
-            ]
-
-            # unique_key_cols = ["chromosome", "dbsnp_id", "variant_start", "variant_end", "reference_nucleotide", "alternative_nucleotide"]
-
-            # # Count unique rows based on these columns
-            # num_unique_variants = len(filtered_df.drop_duplicates(subset=unique_key_cols))
-            # st.markdown(f"**{num_unique_variants:,} variants displayed**")
+            if "LogOddRatio" in filtered_df.columns:
+                filtered_df = filtered_df[
+                    (filtered_df["LogOddRatio"] >= min_lor_val) &
+                    (filtered_df["LogOddRatio"] <= max_lor_val)
+                ]
 
         with col2:
-    		# --- Search Bar and Clear Button ---
+            # --- Search Bar and Clear Button ---
             search_col, clear_col = st.columns([4, 0.5], gap="small")
 
             if "search_query" not in st.session_state:
@@ -261,6 +282,8 @@ if page == "📊 Browse Data":
                 "ID", "chromosome", "dbsnp_id", "ScoreChange", "LogOddRatio",
                 "reported_clinical_association", "predicted_functional_effect", "class"
             ]
+            # keep only existing columns
+            display_cols = [c for c in display_cols if c in filtered_df.columns]
 
             # --- Apply Search Filter ---
             filtered_display_df = filtered_df.copy()
@@ -274,7 +297,88 @@ if page == "📊 Browse Data":
 
             filtered_display_df = filtered_display_df[display_cols].drop_duplicates()
 
-            st.dataframe(filtered_display_df[display_cols], use_container_width=True, height=500, hide_index=True)
+            # --- Make ID clickable (fast HTML) ---
+            if "ID" in filtered_display_df.columns:
+                filtered_display_df = filtered_display_df.copy()
+                filtered_display_df["ID"] = filtered_display_df["ID"].apply(
+                    lambda x: f'<a href="?variant={x}" target="_self" style="color:#0073e6; text-decoration:none;">{x}</a>'
+                )
+
+            # --- Optimize table display for speed ---
+            max_rows = 50  # number of rows to display (you can make it a user option too)
+
+            # Apply all filters/search as before
+            # filtered_display_df = <your existing filtered dataframe>
+
+            # Limit display but keep all filter logic intact
+            display_subset = filtered_display_df.head(max_rows)
+
+            st.markdown("""
+            <style>
+            .scroll-table-container {
+                max-height: 500px;
+                overflow-y: auto;
+                overflow-x: auto;
+                border-bottom: 2px solid #ddd;
+                background-color: #ffffff;
+                border-radius: 6px;
+            }
+            .scroll-table-container table {
+                border-collapse: collapse;
+                width: 100%;
+                font-size: 13px;
+            }
+            .scroll-table-container thead th {
+                position: sticky;
+                top: 0;
+                background-color: #f3f6fa;
+                color: #333;
+                font-weight: 600;
+                border-bottom: 2px solid #ccc;
+                text-align: left;
+                z-index: 2;
+            }
+            .scroll-table-container th, .scroll-table-container td {
+                padding: 6px 10px;
+                border-bottom: 1px solid #e6e6e6;
+            }
+            .scroll-table-container tr:nth-child(even) {
+            background-color: #fafafa;
+            }
+            </style>
+            """, unsafe_allow_html=True)
+            
+            st.markdown(
+                f"""
+                <div class="scroll-table-container">
+                    {display_subset.to_html(escape=False, index=False)}
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
+            # --- Optional: Show row count info ---
+            st.caption(f"Showing top {len(display_subset):,} of {len(filtered_display_df):,} matching rows.")
+
+
+            # small JS: intercept clicks on ?variant links and update query params w/o full reload
+            st.markdown(
+                """
+                <script>
+                document.addEventListener('click', function(event) {
+                    const link = event.target.closest('a[href^="?variant="]');
+                    if (link) {
+                        event.preventDefault();  // stop full reload
+                        const urlParams = new URLSearchParams(link.getAttribute('href').substring(1));
+                        const variant = urlParams.get('variant');
+                        // set the query param in Streamlit without a full reload
+                        window.parent.postMessage({ type: 'streamlit:setQueryParams', params: { variant } }, '*');
+                    }
+                });
+                </script>
+                """,
+                unsafe_allow_html=True
+            )
 
             # --- Download option ---
             csv = filtered_display_df.to_csv(index=False).encode('utf-8')
@@ -285,13 +389,125 @@ if page == "📊 Browse Data":
                 mime="text/csv"
             )
         
+        # --- Detailed info section (below the table) ---
+        st.markdown("---")
+        
+        query_params_now = st.experimental_get_query_params()
+        if "variant" in query_params_now:
+            selected_variant_id = (
+                query_params_now["variant"][0]
+                if isinstance(query_params_now["variant"], list)
+                else query_params_now["variant"]
+            )
+
+            detailed_info = combined_df[combined_df["ID"] == selected_variant_id]
+            if not detailed_info.empty:
+                row = detailed_info.iloc[0]
+                rowd = row.to_dict()
+
+                def pick(*keys):
+                    for key in keys:
+                        if key in rowd and pd.notna(rowd[key]):
+                            return rowd[key]
+                    return "N/A"
+
+                st.markdown(f"### 🧬 Detailed information for variant: `{selected_variant_id}`")
+
+                gene_id = pick('gene', 'Closest gene', 'gene_id')
+                ensembl_link = f"https://www.ensembl.org/Homo_sapiens/Gene/Summary?g={gene_id}" if gene_id != "N/A" else None
+                rs_id = pick('dbsnp_id')
+                dbsnp_link = f"https://www.ncbi.nlm.nih.gov/snp/{rs_id}" if rs_id != "N/A" else None
+
+                # --- Custom card layout ---
+                st.markdown("""
+                <style>
+                .info-card {
+                    background-color: #ffffff;
+                    border-radius: 15px;
+                    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+                    padding: 20px;
+                    margin-bottom: 20px;
+                }
+                .info-title {
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: #1f2937;
+                    margin-bottom: 10px;
+                }
+                .info-grid {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 8px 40px;
+                }
+                .info-label {
+                    font-weight: 600;
+                    color: #374151;
+                }
+                .info-value {
+                    color: #111827;
+                }
+                </style>
+                """, unsafe_allow_html=True)
+
+                # --- Basic Information Card ---
+                st.markdown("""
+                <div class="info-card">
+                    <div class="info-title">🪪 Basic Information</div>
+                    <div class="info-grid">
+                        <div class="info-label">Candidate Variant ID</div><div class="info-value">{id}</div>
+                        <div class="info-label">Genomic Element Class</div><div class="info-value">{cls}</div>
+                        <div class="info-label">Organism</div><div class="info-value">Human</div>
+                        <div class="info-label">Genome Assembly</div><div class="info-value">GRCh38</div>
+                        <div class="info-label">Element Coordinate</div><div class="info-value">{coord}</div>
+                        <div class="info-label">Closest Gene</div><div class="info-value"><a href="{ens}" target="_blank">{gene}</a></div>
+                        <div class="info-label">Strand</div><div class="info-value">{strand}</div>
+                        <div class="info-label">Distance to Element</div><div class="info-value">{dist}</div>
+                    </div>
+                </div>
+                """.format(
+                    id=pick('ID'),
+                    cls=pick('class'),
+                    coord=pick('element_coordinates'),
+                    gene=gene_id,
+                    ens=ensembl_link,
+                    strand=pick('strand'),
+                    dist=pick('distance')
+                ), unsafe_allow_html=True)
+
+                # --- Variant Prediction Card ---
+                st.markdown("""
+                <div class="info-card">
+                    <div class="info-title">📊 Variant Prediction Information</div>
+                    <div class="info-grid">
+                        <div class="info-label">Reference SNP (rs) ID</div><div class="info-value"><a href="{dbsnp}" target="_blank">{rs}</a></div>
+                        <div class="info-label">Variant Coordinate</div><div class="info-value">{varcoord}</div>
+                        <div class="info-label">Reference Allele</div><div class="info-value">{ref}</div>
+                        <div class="info-label">Alternative Allele</div><div class="info-value">{alt}</div>
+                        <div class="info-label">Reference Probability</div><div class="info-value">{refprob}</div>
+                        <div class="info-label">Alternative Probability</div><div class="info-value">{altprob}</div>
+                        <div class="info-label">Score Change</div><div class="info-value">{sc}</div>
+                        <div class="info-label">Log Odds Ratio</div><div class="info-value">{lor}</div>
+                    </div>
+                </div>
+                """.format(
+                    dbsnp=dbsnp_link,
+                    rs=rs_id,
+                    varcoord=pick('variant_coordinates'),
+                    ref=pick('reference_nucleotide'),
+                    alt=pick('alternative_nucleotide'),
+                    refprob=pick('reference_probability'),
+                    altprob=pick('alternative_probability'),
+                    sc=pick('ScoreChange'),
+                    lor=pick('LogOddRatio')
+                ), unsafe_allow_html=True)
+
     with tab2:
         # Load and combine all split files
         data_path = "./data/whole_genome_prediction_data/"  # change to the folder where your CSVs are
         all_files = sorted(glob.glob(os.path.join(data_path, "WGP_*.csv")))
         # Combine all parts into one DataFrame
-        df_list = [pd.read_csv(f) for f in all_files]
-        combined_wgp_df = pd.concat(df_list, ignore_index=True)
+        df_list = [pd.read_csv(f) for f in all_files] if all_files else []
+        combined_wgp_df = pd.concat(df_list, ignore_index=True) if df_list else pd.DataFrame()
         
         st.markdown(
             """
@@ -301,7 +517,7 @@ if page == "📊 Browse Data":
             """,
             unsafe_allow_html=True
         )
-        col1, col2 = st.columns([1, 2], gap="large")
+        col1, col2 = st.columns([1, 4], gap="medium")
         with col1:
             st.markdown(
             """
@@ -316,7 +532,9 @@ if page == "📊 Browse Data":
             if "filter_key_tab2" not in st.session_state:
                 st.session_state.filter_key_tab2 = 0
 
-            chrom_options = ["All"] + sorted(combined_wgp_df["chromosome"].dropna().unique())
+            chrom_options = ["All"]
+            if "chromosome" in combined_wgp_df.columns:
+                chrom_options += sorted(combined_wgp_df["chromosome"].dropna().unique())
             selected_chrom = st.selectbox(
                 "Chromosome",
                 chrom_options,
@@ -324,7 +542,7 @@ if page == "📊 Browse Data":
             )
             
             filtered_df = combined_wgp_df.copy()
-            if selected_chrom != "All":
+            if selected_chrom != "All" and "chromosome" in filtered_df.columns:
                 filtered_df = filtered_df[filtered_df["chromosome"] == selected_chrom]
             # Reset filters
             if st.button("🔄 Reset Filters", key="tab2_reset"):
@@ -521,7 +739,7 @@ else:  # About page
     st.markdown("""
     <div style="text-align: justify;">
     <h5>Acknowledgements:</h5>
-    We thank all members of the Davuluri lab ( 548 The State University of New York at Stony Brook) and Dante Bolzan 
+    We thank all members of the Davuluri lab ( 548 The State University of the State University of New York at Stony Brook) and Dante Bolzan 
     (Ay Lab - La Jolla Institute for Immunology) for critical discussions and helpful 
     advice. This work was financially supported by grants from National Library of Medicine/National
     Institutes of Health funding – [R01LM01372201 to R.D., R35GM128938 to F.A]<br>
