@@ -452,7 +452,7 @@ if page == "📊 Browse Data":
                 # --- Basic Information Card ---
                 st.markdown("""
                 <div class="info-card">
-                    <div class="info-title">🪪 Basic Information</div>
+                    <div class="info-title"> Basic Information</div>
                     <div class="info-grid">
                         <div class="info-label">Candidate Variant ID</div><div class="info-value">{id}</div>
                         <div class="info-label">Genomic Element Class</div><div class="info-value">{cls}</div>
@@ -477,7 +477,7 @@ if page == "📊 Browse Data":
                 # --- Variant Prediction Card ---
                 st.markdown("""
                 <div class="info-card">
-                    <div class="info-title">📊 Variant Prediction Information</div>
+                    <div class="info-title"> Variant Prediction Information</div>
                     <div class="info-grid">
                         <div class="info-label">Reference SNP (rs) ID</div><div class="info-value"><a href="{dbsnp}" target="_blank">{rs}</a></div>
                         <div class="info-label">Variant Coordinate</div><div class="info-value">{varcoord}</div>
@@ -500,6 +500,140 @@ if page == "📊 Browse Data":
                     sc=pick('ScoreChange'),
                     lor=pick('LogOddRatio')
                 ), unsafe_allow_html=True)
+
+                st.markdown("##### Reported Clinical Significance")
+
+                reported_raw = rowd.get("reported_clinical_association", None)
+                reported = str(reported_raw).strip().lower() if reported_raw is not None and not pd.isna(reported_raw) else "no"
+                # st.write(f"Reported raw value: '{reported_raw}'")
+                
+                clinvar_url = rowd.get("clinvar_url", None)
+                gwas_url = rowd.get("gwas_url", None)
+                eqtl_url = rowd.get("eqtl_url", None)
+                
+                if reported_raw == "yes":
+                    st.markdown("**This variant has reported clinical significance.**")
+
+                    links = []
+                    if clinvar_url and str(clinvar_url).strip() not in ["-", "nan", "", "None"]:
+                        links.append(f'<a href="{clinvar_url}" target="_blank" style="text-decoration:none;">🧫 <b>ClinVar</b></a>')
+                    if gwas_url and str(gwas_url).strip() not in ["-", "nan", "", "None"]:
+                        links.append(f'<a href="{gwas_url}" target="_blank" style="text-decoration:none;">📊 <b>GWAS Catalog</b></a>')
+                    if eqtl_url and str(eqtl_url).strip() not in ["-", "nan", "", "None"]:
+                        links.append(f'<a href="{eqtl_url}" target="_blank" style="text-decoration:none;">🧠 <b>GTEx eQTL</b></a>')
+
+                    if links:
+                        links_html = " &nbsp; | &nbsp; ".join(links)
+
+                        st.markdown(
+                            f"""
+                            <div style="
+                                background-color:#f0f8ff;
+                                border: 1px solid #b3d4fc;
+                                border-radius: 12px;
+                                padding: 12px 16px;
+                                margin-top: 6px;
+                                font-size: 14px;
+                            ">
+                                🔗 {links_html}
+                            </div>
+                            """,
+                            unsafe_allow_html=True
+                        )
+                    else:
+                        st.markdown(
+                            """
+                            <div style="
+                                background-color:#fff8e1;
+                                border: 1px solid #f5d742;
+                                border-radius: 12px;
+                                padding: 12px 16px;
+                                color:#555;
+                                font-size:14px;
+                            ">
+                                ⚠️ Marked as reported, but no external database links provided.
+                            </div>
+                            """,
+                        unsafe_allow_html=True
+                    )
+
+                else:
+                    st.markdown(
+                        """
+                        <div style="
+                            background-color:#fafafa;
+                            border:1px solid #ddd;
+                            border-radius:12px;
+                            padding:12px 16px;
+                            color:#666;
+                            font-size:14px;
+                        ">
+                            ⚪ No reported clinical significance found.
+                        </div>
+                        """,
+                        unsafe_allow_html=True
+                    )
+                # --- Transcription Factor Binding Impact (for LOF variants only) ---
+                pred_effect = str(rowd.get("predicted_functional_effect", "")).strip().lower()
+                # st.write(f"predicted functional effect: '{pred_effect}'")
+                if "loss of function" in pred_effect:  # show only for LOF variants
+                    # Filter all TF rows for this variant
+                    tf_rows = combined_df[combined_df["ID"] == selected_variant_id][[
+                        "transcription_factor",
+                        "tf_reference_probability",
+                        "tf_alternative_probability",
+                        "tf_ScoreChange",
+                        "tf_LogOddRatio"
+                    ]].dropna(subset=["transcription_factor"], how="all")
+
+                    if not tf_rows.empty:
+                        # Card header
+                        st.markdown("##### Transcription Factor Binding impact")
+
+                        # Rename columns for display
+                        tf_rows_display = tf_rows.rename(columns={
+                            "transcription_factor": "Transcription Factor",
+                            "tf_reference_probability": "Reference Probability",
+                            "tf_alternative_probability": "Alternative Probability",
+                            "tf_ScoreChange": "Score Change",
+                            "tf_LogOddRatio": "Log Odds Ratio"
+                        })
+
+                        # Optional: clean numeric formatting
+                        for col in ["Reference Probability", "Alternative Probability", "Score Change", "Log Odds Ratio"]:
+                            if col in tf_rows_display.columns:
+                                tf_rows_display[col] = tf_rows_display[col].apply(
+                                    lambda x: f"{x:.4f}" if isinstance(x, (float, int)) else x
+                                )
+
+                        # Display compact, scrollable table
+                        st.dataframe(
+                            tf_rows_display.style.set_table_styles([
+                                {'selector': 'thead th', 'props': [('background-color', '#f0f8ff'), ('font-weight', '600')]},
+                                {'selector': 'tbody td', 'props': [('font-size', '13px')]}
+                            ]),
+                            use_container_width=True,
+                            hide_index=True,
+                            height=min(300, 40 + len(tf_rows_display) * 30)
+                        )
+
+                    else:
+                        st.markdown(
+                            """
+                            <div style="
+                                background-color:#fafafa;
+                                border:1px solid #ddd;
+                                border-radius:12px;
+                                padding:12px 16px;
+                                color:#666;
+                                font-size:14px;
+                            ">
+                                ⚪ No transcription factor impact data available for this LOF variant.
+                            </div>
+                            """,
+                            unsafe_allow_html=True
+                        )
+
 
     with tab2:
         # Load and combine all split files
