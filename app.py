@@ -295,7 +295,10 @@ if page == "📊 Browse Data":
                     ).any(axis=1)
                 ]
 
-            filtered_display_df = filtered_display_df[display_cols].drop_duplicates()
+                if filtered_display_df.empty:
+                    st.warning(f"No results found for **'{search_query}'**. Please try a different keyword.")
+                else:
+                    filtered_display_df = filtered_display_df[display_cols].drop_duplicates()
 
             # --- Make ID clickable (fast HTML) ---
             if "ID" in filtered_display_df.columns:
